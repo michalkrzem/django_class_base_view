@@ -5,7 +5,7 @@ services:
     build: ./
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./todo/:/usr/src/app/
+      - ./todo/:/matrix/app/
     ports:
       - 8000:8000
     env_file:
@@ -15,7 +15,7 @@ services:
   db:
     image: postgres:13.0-alpine
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/matrix/postgresql/data/
     environment:
       - POSTGRES_USER=mkrzeminski
       - POSTGRES_PASSWORD=qwe123
