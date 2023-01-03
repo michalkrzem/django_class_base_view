@@ -3,10 +3,31 @@ version: '3.8'
 services:
   web:
     build: ./
+    image: django_app
     command: python manage.py runserver 0.0.0.0:8000
+    networks: 
+        - baza_net
     volumes:
-      - ./todo/:/usr/src/app/
+      - todo_app:/matrix/app
     ports:
-      - 8000:8000
+      - 8080:8000
     env_file:
       - ./.env.dev
+    depends_on:
+      - db
+  db:
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=mkrzeminski
+      - POSTGRES_PASSWORD=qwe123
+      - POSTGRES_DB=todo_app
+    networks:
+      - baza_net
+volumes:
+    postgres_data:
+    todo_app:
+networks:
+    baza_net:
+  
